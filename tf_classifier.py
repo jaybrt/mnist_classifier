@@ -1,8 +1,11 @@
+import os
 import tensorflow as tf
 import tensorflow_datasets as tfds
 from time import perf_counter
 import csv
 
+
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
 def normalize_img(image, label):
     return tf.cast(image, tf.float32)/255., label
@@ -68,7 +71,7 @@ activ_func = input('activation function?\n')
 if activ_func == 'test':
     results = []
     for func in ['relu', 'sigmoid', 'tanh']:
-        for i in range(100):
+        for i in range(10):
             print(func, i+1)
             train_time, accuracy = new_model(func)
             res = (i+1, func, train_time, accuracy)
